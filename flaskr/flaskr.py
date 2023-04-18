@@ -7,8 +7,8 @@ import os
 
 # configuration
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
-#DATABASE = '/tmp/flaskr.db'
-DATABASE = os.path.join(PROJECT_ROOT, 'tmp', 'flaskr.db')
+#DATABASE = '/flaskr.db'
+DATABASE = os.path.join(PROJECT_ROOT, 'flaskr.db')
 DEBUG = True
 SECRET_KEY = 'development key'
 USERNAME = 'admin'
