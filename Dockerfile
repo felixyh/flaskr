@@ -10,7 +10,7 @@ RUN venv/bin/pip install -r requirements.txt
 RUN venv/bin/pip install gunicorn
 
 COPY flaskr flaskr
-COPY flaskr.py boot.sh ./
+COPY boot.sh ./
 RUN chmod +x boot.sh
 
 ENV FLASK_APP flaskr.py

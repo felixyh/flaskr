@@ -2,7 +2,7 @@
 # this script is used to boot a Docker container
 source venv/bin/activate
 while true; do
-    python -c "from flaskr import init_db; init_db()"
+    python -c "from flaskr.flaskr import init_db; init_db()"
     if [[ "$?" == "0" ]]; then
         break
     fi
