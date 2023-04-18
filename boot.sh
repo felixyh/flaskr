@@ -10,6 +10,4 @@ while true; do
     sleep 5
 done
 
-cd flaskr
-
-exec gunicorn -b :5000 --access-logfile - --error-logfile - flaskr:flaskr
+exec gunicorn -b :5000 --access-logfile - --error-logfile - flaskr.flaskr:app
