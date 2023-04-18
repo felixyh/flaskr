@@ -9,7 +9,7 @@ import os
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 #DATABASE = '/flaskr.db'
 DATABASE = os.path.join(PROJECT_ROOT, 'flaskr.db')
-DEBUG = True
+DEBUG = False
 SECRET_KEY = 'development key'
 USERNAME = 'admin'
 PASSWORD = 'default'
@@ -80,4 +80,4 @@ def logout():
 
 
 if __name__=='__main__':
-    app.run()
+    app.run(host='0.0.0.0')
