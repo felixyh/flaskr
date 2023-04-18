@@ -1,0 +1,46 @@
+name: Build and deploy to AKS
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  IMAGE_NAME: my-image
+  REGISTRY: myregistry.azurecr.io
+  AKS_CLUSTER: my-aks-cluster
+  AKS_NAMESPACE: my-namespace
+  KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Build Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+    - name: Configure kubectl
+      uses: Azure/k8s-set-context@v1
+      with:
+        method: kubeconfig
+        kubeconfig: ${{ env.KUBE_CONFIG_DATA }}
+
+    - name: Deploy to AKS
+      uses: Azure/k8s-deploy@v1
+      with:
+        manifests: |
+          kubernetes/deployment.yaml
+        namespace: ${{ env.AKS_NAMESPACE }}
+        imagepullsecret: ${{ env.REGISTRY }}-secret
