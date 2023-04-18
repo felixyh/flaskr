@@ -10,6 +10,5 @@ while true; do
     sleep 5
 done
 
-
 # (MODULENAME):(VARIABLE_NAME) -> flaskr.flaskr:app
 exec gunicorn -b :5000 --access-logfile - --error-logfile - flaskr.flaskr:app
